@@ -1,0 +1,38 @@
+on: [push, repository_dispatch]
+jobs:
+    Backend-Client-Functional-Tests-CI:
+        runs-on: ubuntu-20.04
+        steps:
+            - name: Setup SSH Keys and known_hosts
+              env:
+                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+              run: |
+                  mkdir -p ~/.ssh
+                  ssh-keyscan github.com >> ~/.ssh/known_hosts
+                  ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+                  ssh-add - <<< "${{ secrets.DEPLOY_KEY }}"
+
+            - name: Checkout out nopayloadclient
+              env:
+                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+              run: |
+                  git clone git@github.com:ligerlac/nopayloadclient.git    
+
+            - name: Prepare github runner
+              env:
+                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+              run: yes | sh nopayloadclient/scripts/prepare_github_runner.sh
+
+            - name: Check out the commit that triggered this job
+              uses: actions/checkout@v3
+              with:
+                path: ${{ github.event.repository.name }}
+
+            - name: run dunenpc tests
+              run: |
+                  ls /usr/local/lib
+                  cd dunenpc/
+                  cmake -DBUILD_TESTING=ON -S . -B build
+                  cmake --build build/
+                  cd build/
+                  ctest --verbose
