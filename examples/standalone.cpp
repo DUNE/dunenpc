@@ -22,7 +22,7 @@ int main()
   // ++++++++++++++++++++++++++++++
 
   // try inserting payload
-  resp = dunenpc::insertPayload("dune_ExampleGT_1", "Beam", "/tmp/file.dat", 0);
+  resp = dunenpc::insertPayload("dune_ExampleGT_1", "Beam", "/tmp/file.dat", 0, 0);
 
   // analyse response: code==0 -> OK, code!=0 -> Not OK!
   if (resp["code"]!=0) {
@@ -33,7 +33,7 @@ int main()
   }
 
   // w/o error handling, inserting a payload is a one-liner:
-  resp = dunenpc::insertPayload("dune_ExampleGT_1", "Beam", "/tmp/file.dat", 0);
+  resp = dunenpc::insertPayload("dune_ExampleGT_1", "Beam", "/tmp/file.dat", 0, 0);
   std::cout << resp << std::endl;
 
 
@@ -41,7 +41,7 @@ int main()
   //          RETRIEVAL
   // ++++++++++++++++++++++++++++++
 
-  resp = dunenpc::get("dune_ExampleGT_1", "Beam", 42);
+  resp = dunenpc::get("dune_ExampleGT_1", "Beam", 42, 42);
   std::cout << resp << std::endl;
 
   return 0;

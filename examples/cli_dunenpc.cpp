@@ -4,8 +4,8 @@
 void get(char *argv[]){
   std::string global_tag = argv[2];
   std::string pl_type = argv[3];
-  int run = std::atoi(argv[4]);
-  int subrun = std::atoi(argv[5]);
+  long long run = std::atoi(argv[4]);
+  long long subrun = std::atoi(argv[5]);
   std::cout << dunenpc::get(global_tag, pl_type, run, subrun) << std::endl;
 }
 
@@ -34,7 +34,7 @@ void deleteGlobalTag(char *argv[]) {
   std::cout << dunenpc::deleteGlobalTag(gt) << std::endl;
 }
 
-void insertPayload(int argc, char *argv[]) {
+void insertPayload(long long argc, char *argv[]) {
   std::string gt = argv[2];
   std::string pt = argv[3];
   std::string file_url = argv[4];
