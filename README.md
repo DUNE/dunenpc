@@ -12,6 +12,11 @@ a simple modification of the more general nopayloadclient
 (https://github.com/ligerlac/nopayloadclient).
 
 ### Setup
+#### preface: install ```nopayloadclient```
+As this library builds on ```nopayloadclient```,
+install it first as described here: https://github.com/ligerlac/nopayloadclient.
+
+#### install ```dunenpc```
 In the project folder, configure cmake and compile
 ```shell
 cmake -S . -B build && cmake --build build/
@@ -25,8 +30,9 @@ an env variable
 ```
 export NOPAYLOADCLIENT_CONF=/path/to/config.json
 ```
-If this is not done, the parameters in ```config/default.json``` will
+If this is not done, the default parameters of ```nopayloadclient``` will
 be assumed.
+
 
 ### Testing
 The following command activates testing, reconfigures cmake, recompiles the code
