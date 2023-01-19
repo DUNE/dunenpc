@@ -1,4 +1,4 @@
-## Welcome to nopayloadclient!
+## Welcome to dunenpc!
 ### Table of contents
 * [Introduction](#introduction)
 * [Setup](#setup)
@@ -6,7 +6,7 @@
 * [Usage](#usage)
 
 ### Introduction
-This dune-specific client-side library is meant to communicate
+This DUNE-specific client-side library is meant to communicate
 with NoPayloadDB (https://github.com/bnlnpps/nopayloaddb). It is
 a simple modification of the more general nopayloadclient
 (https://github.com/ligerlac/nopayloadclient).
