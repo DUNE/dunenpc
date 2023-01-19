@@ -5,8 +5,9 @@
 namespace dunenpc {
 
 // Reading
-nlohmann::json get(std::string gt_name, std::string pl_type, long long iov){
-    return nopayloadclient::get(gt_name, pl_type, 0, iov);
+nlohmann::json get(std::string gt_name, std::string pl_type,
+                   long long run, long long subrun){
+    return nopayloadclient::get(gt_name, pl_type, run, subrun);
 }
 
 
@@ -32,13 +33,16 @@ nlohmann::json createPayloadType(std::string name) {
 }
 
 nlohmann::json insertPayload(std::string gt_name, std::string pl_type, std::string file_url,
-                             long long iov_start){
-    return nopayloadclient::insertPayload(gt_name, pl_type, file_url, 0, iov_start);
+                             long long run_start, long long subrun_start){
+    return nopayloadclient::insertPayload(gt_name, pl_type, file_url,
+                                          run_start, subrun_start);
 }
 
 nlohmann::json insertPayload(std::string gt_name, std::string pl_type, std::string file_url,
-                             long long iov_start, long long iov_end){
-    return nopayloadclient::insertPayload(gt_name, pl_type, file_url, 0, iov_start, 0, iov_end);
+                             long long run_start, long long subrun_start,
+                             long long run_end, long long subrun_end){
+    return nopayloadclient::insertPayload(gt_name, pl_type, file_url,
+                                          run_start, subrun_start, run_end, subrun_end);
 }
 
 // Helper (Read-only)

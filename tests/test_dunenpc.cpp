@@ -42,9 +42,12 @@ int main()
   nlohmann::json resp;
   srandom(time(NULL));
 
-  long long iov_start = randLong(0, 1e6);
-  long long iov_end = randLong(iov_start, 10e6);
-  long long iov = randLong(iov_start, iov_end);
+  long long run_start = randLong(0, 1e6);
+  long long subrun_start = randLong(0, 1e6);
+  long long run_end = randLong(run_start, 10e6);
+  long long subrun_end = randLong(subrun_start, 10e6);
+  long long run = randLong(run_start, run_end);
+  long long subrun = randLong(subrun_start, subrun_end);
 
   int n_pl_0 = getPayloadNumber();
 
@@ -68,7 +71,8 @@ int main()
 
   // insert should work
   resp = dunenpc::insertPayload("my_gt", "my_pt", my_local_url,
-                                   iov_start, iov_end);
+                                        run_start, subrun_start,
+                                        run_end, subrun_end);
   std::cout << resp << std::endl;
   if (resp["code"] != 0) return 1;
 
@@ -77,13 +81,14 @@ int main()
   if (n_pl_1 != (n_pl_0 + 1)) return 1;
 
   // getting the url from the DB again should work
-  resp = dunenpc::get("my_gt", "my_pt", iov);
+  resp = dunenpc::get("my_gt", "my_pt", run, subrun);
   std::cout << resp << std::endl;
   if (resp["code"] != 0) return 1;
 
   // inserting another iov with the same payload should work...
   resp = dunenpc::insertPayload("my_gt", "my_pt", my_local_url,
-                                   iov, iov_end);
+                                        run, subrun,
+                                        run_end, subrun_end);
   std::cout << resp << std::endl;
   if (resp["code"] != 0) return 1;
 
@@ -97,12 +102,14 @@ int main()
   if (resp["code"] != 0) return 1;
 
   // should not be able to write to a locked gt ...
-  resp = dunenpc::insertPayload("my_gt", "my_pt", my_local_url, iov);
+  resp = dunenpc::insertPayload("my_gt", "my_pt", my_local_url,
+                                        run, subrun);
   std::cout << resp << std::endl;
   if (resp["code"] == 0) return 1;
 
   // ... except if the IOV does not overlap with existing
-  resp = dunenpc::insertPayload("my_gt", "my_pt", my_local_url, iov_end);
+  resp = dunenpc::insertPayload("my_gt", "my_pt", my_local_url,
+                                        run_end, subrun_end);
   std::cout << resp << std::endl;
   if (resp["code"] != 0) return 1;
 
@@ -117,7 +124,8 @@ int main()
   if (resp["code"] != 0) return 1;
 
   // insertion should work again after unlocking
-  resp = dunenpc::insertPayload("my_gt", "my_pt", my_local_url, iov);
+  resp = dunenpc::insertPayload("my_gt", "my_pt", my_local_url,
+                                        run, subrun);
   std::cout << resp << std::endl;
   if (resp["code"] != 0) return 1;
 
@@ -127,7 +135,7 @@ int main()
   if (resp["code"] != 0) return 1;
 
   // retrieval after deletion should fail
-  resp = dunenpc::get("my_gt", "my_pt", iov);
+  resp = dunenpc::get("my_gt", "my_pt", run, subrun);
   std::cout << resp << std::endl;
   if (resp["code"] == 0) return 1;
 

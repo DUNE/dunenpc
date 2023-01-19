@@ -4,8 +4,9 @@
 void get(char *argv[]){
   std::string global_tag = argv[2];
   std::string pl_type = argv[3];
-  int iov = std::atoi(argv[4]);
-  std::cout << dunenpc::get(global_tag, pl_type, iov) << std::endl;
+  int run = std::atoi(argv[4]);
+  int subrun = std::atoi(argv[5]);
+  std::cout << dunenpc::get(global_tag, pl_type, run, subrun) << std::endl;
 }
 
 void createGlobalTag(char *argv[]) {
@@ -37,16 +38,20 @@ void insertPayload(int argc, char *argv[]) {
   std::string gt = argv[2];
   std::string pt = argv[3];
   std::string file_url = argv[4];
-  long long iov_start = std::atoi(argv[5]);
-  if (argc == 6) {
-      std::cout << dunenpc::insertPayload(gt, pt, file_url, iov_start) << std::endl;
+  long long run_start = std::atoi(argv[5]);
+  long long subrun_start = std::atoi(argv[6]);
+  if (argc == 7) {
+      std::cout << dunenpc::insertPayload(gt, pt, file_url, run_start,
+       subrun_start) << std::endl;
   }
-  else if (argc == 7) {
-      long long iov_end = std::atoi(argv[6]);
-      std::cout << dunenpc::insertPayload(gt, pt, file_url, iov_start, iov_end) << std::endl;
+  else if (argc == 9) {
+      long long run_end = std::atoi(argv[7]);
+      long long subrun_end = std::atoi(argv[8]);
+      std::cout << dunenpc::insertPayload(gt, pt, file_url, run_start,
+       subrun_start, run_end, subrun_end) << std::endl;
   }
   else {
-      std::cout << "insertPayload takes 4 or 5 arguments (" << argc-2 << " were given)." << std::endl;
+      std::cout << "insertPayload takes 5 or 7 arguments (" << argc-2 << " were given)." << std::endl;
   }
 }
 
