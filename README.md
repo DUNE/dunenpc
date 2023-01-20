@@ -1,4 +1,4 @@
-## Welcome to dunenpc!
+## Welcome to sphenixnpx!
 ### Table of contents
 * [Introduction](#introduction)
 * [Setup](#setup)
@@ -13,10 +13,15 @@ a simple modification of the more general nopayloadclient
 
 ### Setup
 #### preface: install ```nopayloadclient```
-As this library builds on ```nopayloadclient```,
-install it first as described here: https://github.com/ligerlac/nopayloadclient.
+As this library builds on ```nopayloadclient```, install it first
+as described here: https://github.com/ligerlac/nopayloadclient.
 
 #### install ```dunenpc```
+If a custom install path was chosen for ```nopayloadclient```,
+configure ```dunenpc``` to the same one:
+```shell
+source setup_custom_install_path.sh /absolute/install/path
+```
 In the project folder, configure cmake and compile
 ```shell
 cmake -S . -B build && cmake --build build/
@@ -27,12 +32,11 @@ cmake --install build/
 ```
 Configure the client by specifying the config file in
 an env variable
-```
+```shell
 export NOPAYLOADCLIENT_CONF=/path/to/config.json
 ```
 If this is not done, the default parameters of ```nopayloadclient``` will
 be assumed.
-
 
 ### Testing
 The following command activates testing, reconfigures cmake, recompiles the code
@@ -40,7 +44,6 @@ and runs the tests
 ```
 cmake -DBUILD_TESTING=ON -S . -B build && cmake --build build/ && cd build/ && ctest --verbose && cd ..
 ```
-
 
 ### Usage
 To use this library in an independent project, include its
@@ -52,11 +55,11 @@ header and the widely-spread nlohmann json header-only lib
 ```
 Payloads can be inserted via
 ```c
-dunenpc::insertPayload(<gtName>, <gtType>, <localUrl>, <iov>);
+dunenpc::insertPayload(<gt_name>, <gt_type>, <local_url>, <run_number>, <subrun_number>);
 ```
 and their url can be retrieved via
 ```c
-dunenpc::get(<gtName>, <gtType>, <iov>);
+dunenpc::get(<gt_name>, <gt_type>, <run_number>, <subrun_number>);
 ```
 Every method returns a nlohmann::json object with a response code and a
 message body in the  following format:
@@ -71,9 +74,9 @@ Currently, the following response codes are implemented:
 3: error in the database (server-side)
 ```
 Examples on how to use this tool in a c++ program can be found in the ```examples/```
-folder. The following command compiles and runs them:
-```
-g++ -std=c++17 standalone.cpp -ldunenpc -lnopayloadclient -lcurl
+folder. To compile ```standalone.cpp```, run the following command
+```shell
+ g++ -std=c++17 standalone.cpp -lnopayloadclient -ldunenpc -lcurl
 ```
 
 #### Usage through command line interface
@@ -92,7 +95,7 @@ cli_dunenpc createGlobalTag example_gt
 cli_dunenpc getGlobalTags
 cli_dunenpc createPayloadType example_pt
 cli_dunenpc getPayloadTypes
-cli_dunenpc insertPayload example_gt example_pt /tmp/file.dat 7
-cli_dunenpc get example_gt example_pt 11
+cli_dunenpc insertPayload example_gt example_pt /tmp/file.dat 7 11
+cli_dunenpc get example_gt example_pt 9 13
 cli_dunenpc getSize
 ```
