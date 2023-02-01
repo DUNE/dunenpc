@@ -1,3 +1,5 @@
+option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
+
 add_library(dunenpc dunenpc.cpp)
 target_link_libraries(dunenpc PUBLIC curl ${npc_lib})
 
