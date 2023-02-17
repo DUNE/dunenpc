@@ -1,6 +1,6 @@
 #include <iostream>
 #include <nlohmann/json.hpp> // every method returns a json object
-#include <dunenpc.hpp>
+#include <dunenpc/dunenpc.hpp>
 
 int main()
 {

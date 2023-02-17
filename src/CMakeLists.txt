@@ -14,3 +14,8 @@ target_include_directories(dunenpc
 
 install(TARGETS dunenpc DESTINATION lib)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION include)
+
+add_executable(cli_dunenpc cli.cpp)
+target_link_libraries(cli_dunenpc PUBLIC dunenpc ${npc_lib} curl ${_std_cxx_filesystem_lib})
+target_include_directories(cli_dunenpc PRIVATE ${CMAKE_SOURCE_DIR}/include ${npc_include})
+install(TARGETS cli_dunenpc DESTINATION bin)

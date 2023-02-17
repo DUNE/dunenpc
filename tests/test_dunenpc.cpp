@@ -4,7 +4,7 @@
 #include <time.h>
 #include <experimental/filesystem>
 
-#include <dunenpc.hpp>
+#include <dunenpc/dunenpc.hpp>
 
 using json = nlohmann::json;
 

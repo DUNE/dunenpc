@@ -1,19 +1,21 @@
-#include <dunenpc.hpp>
+#include <dunenpc/dunenpc.hpp>
 
 namespace dunenpc {
 
-json Client::getUrlDict(long long iov) {
-    return nopayloadclient::Client::getUrlDict(0, iov);
+json Client::getUrlDict(long long run_number) {
+    return nopayloadclient::Client::getUrlDict(0, run_number);
 }
 
 json Client::insertPayload(std::string pl_type, std::string file_url,
-                           long long iov_start) {
-    return nopayloadclient::Client::insertPayload(pl_type, file_url, 0, iov_start);
+                           long long run_number_start) {
+    std::cout << "dunenpc::Client::insertPayload()" << std::endl;
+    return nopayloadclient::Client::insertPayload(pl_type, file_url, 0, run_number_start);
 }
 
 json Client::insertPayload(std::string pl_type, std::string file_url,
-                           long long iov_start, long long iov_end) {
-    return nopayloadclient::Client::insertPayload(pl_type, file_url, 0, iov_start, 0, iov_end);
+                           long long run_number_start, long long run_number_end) {
+    std::cout << "dunenpc::Client::insertPayload()" << std::endl;
+    return nopayloadclient::Client::insertPayload(pl_type, file_url, 0, run_number_start, 0, run_number_end);
 }
 
 }

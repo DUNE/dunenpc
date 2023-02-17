@@ -12,11 +12,11 @@ class Client : public nopayloadclient::Client {
 
 using nopayloadclient::Client::Client;
 public:
-    json getUrlDict(long long iov);
+    json getUrlDict(long long run_number);
     json insertPayload(std::string pl_type, std::string file_url,
-                       long long iov_start);
+                       long long run_number_start);
     json insertPayload(std::string pl_type, std::string file_url,
-                       long long iov_start, long long iov_end);
+                       long long run_number_start, long long run_number_end);
 };
 
 }

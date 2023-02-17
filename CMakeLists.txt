@@ -27,7 +27,6 @@ find_library(npc_lib NAMES nopayloadclient)
 find_path(npc_include NAMES nopayloadclient)
 
 add_subdirectory(src)
-#add_subdirectory(examples)
 
 # Set up tests
 option(BUILD_TESTING "" OFF)

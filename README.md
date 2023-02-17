@@ -1,4 +1,4 @@
-## Welcome to sphenixnpx!
+## Welcome to dunenpx!
 ### Table of contents
 * [Introduction](#introduction)
 * [Setup](#setup)
@@ -53,13 +53,18 @@ header and the widely-spread nlohmann json header-only lib
 #include <nlohmann/json.hpp>
 #include <dunenpc.hpp>
 ```
+Firstly, create an instance of the client and configure it for a global tag
+```c
+dunenpc::Client client;
+client.setGlobalTag(<gt_name>);
+```
 Payloads can be inserted via
 ```c
-dunenpc::insertPayload(<gt_name>, <gt_type>, <local_url>, <run_number>, <subrun_number>);
+client.insertPayload(<gt_type>, <local_url>, <run_number>);
 ```
-and their url can be retrieved via
+and a dictionary mapping each payload type to one url can be retrieved via
 ```c
-dunenpc::get(<gt_name>, <gt_type>, <run_number>, <subrun_number>);
+client.getUrlDict(<run_number>);
 ```
 Every method returns a nlohmann::json object with a response code and a
 message body in the  following format:
@@ -76,7 +81,7 @@ Currently, the following response codes are implemented:
 Examples on how to use this tool in a c++ program can be found in the ```examples/```
 folder. To compile ```standalone.cpp```, run the following command
 ```shell
- g++ -std=c++17 standalone.cpp -lnopayloadclient -ldunenpc -lcurl
+ g++ -std=c++14 standalone.cpp -lnopayloadclient -ldunenpc -lcurl
 ```
 
 #### Usage through command line interface
@@ -85,7 +90,7 @@ It is compiled and installed along the rest of the project and can be run via
 ```shell
 cli_dunenpc <command> <parameters>
 ```
-The available commands are: get, createGlobalTag, createPayloadType, lockGlobalTag,
+The available commands are: getUrlDict, createGlobalTag, createPayloadType, lockGlobalTag,
 unlockGlobalTag, deleteGlobalTag, insertPayload (overloaded), getSize,
 getPayloadTypes, getGlobalTags, checkConnection, and getConfDict. Example workflow:
 ```shell
@@ -96,6 +101,6 @@ cli_dunenpc getGlobalTags
 cli_dunenpc createPayloadType example_pt
 cli_dunenpc getPayloadTypes
 cli_dunenpc insertPayload example_gt example_pt /tmp/file.dat 7 11
-cli_dunenpc get example_gt example_pt 9 13
+cli_dunenpc getUrlDict example_gt 9
 cli_dunenpc getSize
 ```
