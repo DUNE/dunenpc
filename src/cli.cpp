@@ -29,7 +29,7 @@ json CLI::insertPayload(Client& c, int& argc, char* argv[]){
         return c.insertPayload(pt, file_url, run_number_start, run_number_end);
     }
     std::string t = "insertPayload takes 4 or 5 arguments (" + std::to_string(argc-2) + " were given).";
-    return BaseException(t).jsonify();
+    return nopayloadclient::BaseException(t).jsonify();
 }
 
 

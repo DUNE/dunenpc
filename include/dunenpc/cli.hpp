@@ -1,6 +1,7 @@
 #pragma once
 
 #include <nopayloadclient/cli.hpp>
+#include <nopayloadclient/exception.hpp>
 #include <dunenpc/dunenpc.hpp>
 
 namespace dunenpc {
