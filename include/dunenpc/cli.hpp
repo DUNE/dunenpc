@@ -9,8 +9,8 @@ namespace dunenpc {
 class CLI : public nopayloadclient::CLI {
 public:
     CLI();
-    json getUrlDict(Client& c, int& argc, char* argv[]);
-    json insertPayload(Client& c, int& argc, char* argv[]);
+    json getUrlDict(DuneClient& c, int& argc, char* argv[]);
+    json insertPayload(DuneClient& c, int& argc, char* argv[]);
 };
 
 }

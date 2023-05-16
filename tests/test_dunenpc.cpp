@@ -46,7 +46,7 @@ int main()
   long long iov_end = randLong(iov_start, 10e6);
   long long iov = randLong(iov_start, iov_end);
 
-  dunenpc::Client client {"my_gt"};
+  dunenpc::DuneClient client {"my_gt"};
   json conf_dict = client.getConfDict()["msg"];
 
   int n_pl_0 = getPayloadNumber(conf_dict["write_dir"]);

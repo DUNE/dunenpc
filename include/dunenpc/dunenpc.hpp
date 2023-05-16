@@ -4,14 +4,17 @@
 #include <nlohmann/json.hpp>
 #include <nopayloadclient/nopayloadclient.hpp>
 
-using json = nlohmann::json;
 
 namespace dunenpc {
 
-class Client : public nopayloadclient::Client {
+using json = nlohmann::json;
 
-using nopayloadclient::Client::Client;
+class DuneClient : public nopayloadclient::NoPayloadClient {
+
 public:
+    DuneClient();
+    DuneClient(const std::string& gt_name);
+
     json getUrlDict(long long run_number);
     json insertPayload(std::string pl_type, std::string file_url,
                        long long run_number_start);

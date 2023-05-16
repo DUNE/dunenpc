@@ -7,7 +7,7 @@ CLI::CLI() {
     insertCommand("insertPayload", &CLI::insertPayload);
 }
 
-json CLI::getUrlDict(Client& c, int& argc, char* argv[]) {
+json CLI::getUrlDict(DuneClient& c, int& argc, char* argv[]) {
     std::cout << "CLI::getUrlDict()" << std::endl;
     std::string gt_name = argv[2];
     long long run_number = std::atoi(argv[3]);
@@ -15,7 +15,7 @@ json CLI::getUrlDict(Client& c, int& argc, char* argv[]) {
     return c.getUrlDict(run_number);
 }
 
-json CLI::insertPayload(Client& c, int& argc, char* argv[]){
+json CLI::insertPayload(DuneClient& c, int& argc, char* argv[]){
     std::string gt = argv[2];
     std::string pt = argv[3];
     std::string file_url = argv[4];
@@ -38,7 +38,7 @@ json CLI::insertPayload(Client& c, int& argc, char* argv[]){
 int main(int argc, char *argv[])
 {
     dunenpc::CLI cli;
-    dunenpc::Client client;
+    dunenpc::DuneClient client;
     std::cout << cli.callCommand(argv[1], &client, argc, *argv).dump(4) << std::endl;
 
     return 0;
