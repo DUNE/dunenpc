@@ -79,7 +79,7 @@ int main()
   if (n_pl_1 != (n_pl_0 + 1)) return 1;
 
   // getting the url from the DB again should work...
-  resp = client.getUrlDict(iov);
+  resp = client.getUrl("my_pt", iov);
   std::cout << resp << std::endl;
   if (resp["code"] != 0) return 1;
 
@@ -133,7 +133,7 @@ int main()
   if (resp["code"] != 0) return 1;
 
   // retrieval after deletion should fail...
-  resp = client.getUrlDict(iov);
+  resp = client.getUrl("my_pt", iov);
   std::cout << resp << std::endl;
   if (resp["code"] == 0) return 1;
 

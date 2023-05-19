@@ -3,16 +3,17 @@
 namespace dunenpc {
 
 CLI::CLI() {
-    insertCommand("getUrlDict", &CLI::getUrlDict);
+    insertCommand("getUrl", &CLI::getUrl);
     insertCommand("insertPayload", &CLI::insertPayload);
 }
 
-json CLI::getUrlDict(DuneClient& c, int& argc, char* argv[]) {
-    std::cout << "CLI::getUrlDict()" << std::endl;
+json CLI::getUrl(DuneClient& c, int& argc, char* argv[]) {
+    std::cout << "CLI::getUrl()" << std::endl;
     std::string gt_name = argv[2];
-    long long run_number = std::atoi(argv[3]);
+    std::string type = argv[3];
+    long long run_number = std::atoi(argv[4]);
     c.setGlobalTag(gt_name);
-    return c.getUrlDict(run_number);
+    return c.getUrl(type, run_number);
 }
 
 json CLI::insertPayload(DuneClient& c, int& argc, char* argv[]){

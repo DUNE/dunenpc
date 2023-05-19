@@ -15,7 +15,7 @@ public:
     DuneClient();
     DuneClient(const std::string& gt_name);
 
-    json getUrlDict(long long run_number);
+    json getUrl(const std::string& pl_type, long long run_number);
     json insertPayload(std::string pl_type, std::string file_url,
                        long long run_number_start);
     json insertPayload(std::string pl_type, std::string file_url,
