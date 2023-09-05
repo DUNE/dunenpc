@@ -6,30 +6,38 @@
 * [Usage](#usage)
 
 ### Introduction
-This DUNE-specific client-side library is meant to communicate
+This sPHENIX-specific client-side library is meant to communicate
 with NoPayloadDB (https://github.com/bnlnpps/nopayloaddb). It is
 a simple modification of the more general nopayloadclient
 (https://github.com/ligerlac/nopayloadclient).
 
 ### Setup
-#### preface: install ```nopayloadclient```
-As this library builds on ```nopayloadclient```, install it first
+#### preface: install `nopayloadclient`
+As this library builds on `nopayloadclient`, install it first
 as described here: https://github.com/ligerlac/nopayloadclient.
+It is assumed that `nopayloadclient` has been installed under
+`<npc_prefix>` in the following.
 
 #### install ```dunenpc```
-If a custom install path was chosen for ```nopayloadclient```,
-configure ```dunenpc``` to the same one:
+In the project folder, configure cmake, compile and install `dunenpc`
 ```shell
-source setup_custom_install_path.sh /absolute/install/path
-```
-In the project folder, configure cmake and compile
-```shell
-cmake -S . -B build && cmake --build build/
-```
-Install the client
-```shell
+cmake -S . -B build -DCMAKE_PREFIX_PATH=<npc_prefix> -DCMAKE_INSTALL_PREFIX=<install_prefix>
+cmake --build build/
 cmake --install build/
 ```
+Omitting `-DCMAKE_PREFIX_PATH=<npc_prefix>` will assume `nopayloadclient`
+has been installed under the default directory (e.g. `/usr/local/`).
+Omitting `-DCMAKE_INSTALL_PREFIX=<install_prefix>` will install `dunenpc`
+under the default directory (e.g. `/usr/local/`).
+
+If a custom installation prefix was defined, update the necessary
+environment variables:
+```shell
+export PATH=<install_prefix>/bin:$PATH
+export LD_LIBRARY_PATH=<install_prefix>/lib:$LD_LIBRARY_PATH
+```
+Replace `LD_LIBRARY_PATH` by `DYLD_LIBRARY_PATH` on MacOS.
+
 Configure the client by specifying the config file in
 an env variable
 ```shell
@@ -53,18 +61,13 @@ header and the widely-spread nlohmann json header-only lib
 #include <nlohmann/json.hpp>
 #include <dunenpc.hpp>
 ```
-Firstly, create an instance of the client and configure it for a global tag
-```c
-dunenpc::Client client;
-client.setGlobalTag(<gt_name>);
-```
 Payloads can be inserted via
 ```c
-client.insertPayload(<gt_type>, <local_url>, <run_number>);
+dunenpc::insertPayload(<gt_name>, <gt_type>, <local_url>, <iov>);
 ```
-and a dictionary mapping each payload type to one url can be retrieved via
+and their url can be retrieved via
 ```c
-client.getUrlDict(<run_number>);
+dunenpc::get(<gt_name>, <gt_type>, <iov>);
 ```
 Every method returns a nlohmann::json object with a response code and a
 message body in the  following format:
@@ -85,12 +88,12 @@ folder. To compile ```standalone.cpp```, run the following command
 ```
 
 #### Usage through command line interface
-```examples/cli_dune.cpp``` is an implementation of a command line interface.
+```examples/cli_sphenix.cpp``` is an implementation of a command line interface.
 It is compiled and installed along the rest of the project and can be run via 
 ```shell
 cli_dunenpc <command> <parameters>
 ```
-The available commands are: getUrlDict, createGlobalTag, createPayloadType, lockGlobalTag,
+The available commands are: get, createGlobalTag, createPayloadType, lockGlobalTag,
 unlockGlobalTag, deleteGlobalTag, insertPayload (overloaded), getSize,
 getPayloadTypes, getGlobalTags, checkConnection, and getConfDict. Example workflow:
 ```shell
@@ -100,12 +103,7 @@ cli_dunenpc createGlobalTag example_gt
 cli_dunenpc getGlobalTags
 cli_dunenpc createPayloadType example_pt
 cli_dunenpc getPayloadTypes
-cli_dunenpc insertPayload example_gt example_pt /tmp/file.dat 7 11
-cli_dunenpc getUrlDict example_gt 9
+cli_dunenpc insertPayload example_gt example_pt /tmp/file.dat 7
+cli_dunenpc get example_gt example_pt 11
 cli_dunenpc getSize
-
-
-cli_dunenpc createPayloadType moon_phase
-cli_dunenpc insertPayload snowmass_23 moon_phase my_file.root 7 11
-
 ```
