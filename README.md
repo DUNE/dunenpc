@@ -6,7 +6,7 @@
 * [Usage](#usage)
 
 ### Introduction
-This sPHENIX-specific client-side library is meant to communicate
+This DUNE-specific client-side library is meant to communicate
 with NoPayloadDB (https://github.com/bnlnpps/nopayloaddb). It is
 a simple modification of the more general nopayloadclient
 (https://github.com/ligerlac/nopayloadclient).
@@ -88,7 +88,7 @@ folder. To compile ```standalone.cpp```, run the following command
 ```
 
 #### Usage through command line interface
-```examples/cli_sphenix.cpp``` is an implementation of a command line interface.
+```src/cli_dune.cpp``` is an implementation of a command line interface.
 It is compiled and installed along the rest of the project and can be run via 
 ```shell
 cli_dunenpc <command> <parameters>
