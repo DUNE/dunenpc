@@ -1,4 +1,4 @@
-## Welcome to dunenpx!
+## Welcome to dunenpc!
 ### Table of contents
 * [Introduction](#introduction)
 * [Setup](#setup)
@@ -103,4 +103,9 @@ cli_dunenpc getPayloadTypes
 cli_dunenpc insertPayload example_gt example_pt /tmp/file.dat 7 11
 cli_dunenpc getUrlDict example_gt 9
 cli_dunenpc getSize
+
+
+cli_dunenpc createPayloadType moon_phase
+cli_dunenpc insertPayload snowmass_23 moon_phase my_file.root 7 11
+
 ```

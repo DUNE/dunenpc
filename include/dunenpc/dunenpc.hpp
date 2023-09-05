@@ -4,7 +4,6 @@
 #include <nlohmann/json.hpp>
 #include <nopayloadclient/nopayloadclient.hpp>
 
-
 namespace dunenpc {
 
 using json = nlohmann::json;

@@ -55,7 +55,7 @@ int main()
   std::cout << resp << std::endl;
   std::cout << client.getConfDict() << std::endl;
 
-  // delete & re-create the global tag
+  std::cout << "delete and recreate global tag..." << std::endl;
   resp = client.deleteGlobalTag();
   std::cout << resp << std::endl;
 
