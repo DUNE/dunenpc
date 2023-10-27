@@ -21,14 +21,18 @@ It is assumed that `nopayloadclient` has been installed under
 #### install ```dunenpc```
 In the project folder, configure cmake, compile and install `dunenpc`
 ```shell
-cmake -S . -B build -DCMAKE_PREFIX_PATH=<npc_prefix> -DCMAKE_INSTALL_PREFIX=<install_prefix>
+cmake -S . -B build -DCMAKE_PREFIX_PATH=<npc_prefix> -DCMAKE_INSTALL_PREFIX=<install_prefix> -DINCLUDE_DIR_NLOHMANN_JSON=<nlohmann_include_dir>
 cmake --build build/
 cmake --install build/
 ```
 Omitting `-DCMAKE_PREFIX_PATH=<npc_prefix>` will assume `nopayloadclient`
 has been installed under the default directory (e.g. `/usr/local/`).
 Omitting `-DCMAKE_INSTALL_PREFIX=<install_prefix>` will install `dunenpc`
-under the default directory (e.g. `/usr/local/`).
+under the default directory (e.g. `/usr/local/`). Omitting
+`-DINCLUDE_DIR_NLOHMANN_JSON=<nlohmann_include_dir>` will use the
+header that ships with this product under `contrib/`. Make sure to use
+the same version of the header that was used for `nopayloadclient` to
+avoid a version mismatch.
 
 If a custom installation prefix was defined, update the necessary
 environment variables:
